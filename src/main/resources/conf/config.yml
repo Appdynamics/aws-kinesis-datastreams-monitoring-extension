@@ -5,7 +5,7 @@
 #This will create it in specific Tier aka Component. Replace <COMPONENT_ID>. Please make sure to have a trailing |.
 #To find out the COMPONENT_ID, please see the screen shot here https://docs.appdynamics.com/display/PRO42/Build+a+Monitoring+Extension+Using+Java
 
-# Metric list can be found here : https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/elb-metricscollected.html
+# Metric list can be found here : https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ak-metricscollected.html
 
 metricPrefix: "Server|Component:<TIER_ID>|Custom Metrics|AWS Kinesis Data Streams|"
 
@@ -171,7 +171,7 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "PutRecord.Latency"
-         alias: "PutRecord Latency (Unit: ms, StatType: sum)"
+         alias: "PutRecord Latency (Unit: ms, StatType: ave)"
          statType: "ave"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
