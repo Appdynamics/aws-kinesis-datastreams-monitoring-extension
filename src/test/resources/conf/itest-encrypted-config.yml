@@ -14,9 +14,9 @@ accounts:
     awsSecretKey: ""
     displayAccountName: ""
     # Regions where cloudwatch is registered
-    # Allowed values: ap-southeast-1, ap-southeast-2, ap-northeast-1, eu-central-1,
-    #                 us-east-1, eu-west-1, us-west-1, us-west-2, sa-east-1
-    #
+    # Allowed values: us-east-2, us-east-1, us-west-1, us-west-2, ap-northeast-1, ap-northeast-2, ap-northeast-3,
+    #                ap-south-1, ap-southeast-1, ap-southeast-2, ca-central-1, cn-north-1, cn-northwest-1,
+    #                eu-central-1, eu-west-1, eu-west-2, eu-west-3, sa-east-1, us-gov-west-1
     regions: ["us-west-2"]
 
 credentialsDecryptionConfig:
@@ -29,17 +29,26 @@ proxyConfig:
   username:
   password:
 
+# TODO comments check and filter by streamname
+# Filters based on dimensions, values accepts comma separated values and regex patterns. If `.*` is used, all are
+# monitored and if empty, none are monitored.
 dimensions:
+  # Dimension
   - name: "StreamName"
     displayName: "Stream Name"
-    values: ["", ""]
+    values: [".*"]
+  # Dimension Consumer Name should be used if a Consumer is configured (there is an active subscription).
+  # Keep values empty if no consumer is configured.
+  - name: "ConsumerName"
+    displayName: "Consumer Name"
+    values: []
   # The dimension ShardId can only be used when retrieving Enhanced Shard-level Metrics.
   # To get this level of data, you must specifically enable it for the stream using the EnableEnhancedMonitoring operation.
   # Please refer https://docs.aws.amazon.com/kinesis/latest/APIReference/API_EnableEnhancedMonitoring.html for enabling.
   # AWS will charge for enhanced metrics emitted from Kinesis.
 #  - name: "ShardId"
 #    displayName: "Shard Id"
-#    values: ["", ""]
+#    values: [".*"]
 
 concurrencyConfig:
   noOfAccountThreads: 3
@@ -89,8 +98,8 @@ metricsConfig:
     # AWS will charge for enhanced metrics emitted from Kinesis.
     includeMetrics:
        - name: "GetRecords.Bytes"
-         alias: "GetRecords Bytes Received"
-         statType: "ave"
+         alias: "GetRecords Records (Unit: byte, StatType: sum)"
+         statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
          clusterRollUpType: "INDIVIDUAL"
@@ -99,22 +108,22 @@ metricsConfig:
          # GetRecords.IteratorAge is deprecated, use GetRecords.IteratorAgeMilliseconds
 #       - name: "GetRecords.IteratorAge"
 #         alias: "GetRecords Iterator Age"
-#         statType: "ave"
+#         statType: "max"
 #         aggregationType: "AVERAGE"
 #         timeRollUpType: "AVERAGE"
 #         clusterRollUpType: "INDIVIDUAL"
 #         delta: false
 #         multiplier: 1
        - name: "GetRecords.IteratorAgeMilliseconds"
-         alias: "GetRecords Iterator AgeMilliseconds"
-         statType: "ave"
+         alias: "GetRecords Iterator Age (Unit: ms, StatType: max)"
+         statType: "max"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
          clusterRollUpType: "INDIVIDUAL"
          delta: false
          multiplier: 1
        - name: "GetRecords.Latency"
-         alias: "GetRecords Latency"
+         alias: "GetRecords Latency (Unit: ms, StatType: ave)"
          statType: "ave"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -122,15 +131,15 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "GetRecords.Records"
-         alias: "GetRecords Records Retrieved"
-         statType: "ave"
+         alias: "GetRecords Records (Unit: count, StatType: sum)"
+         statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
          clusterRollUpType: "INDIVIDUAL"
          delta: false
          multiplier: 1
        - name: "GetRecords.Success"
-         alias: "GetRecords Success"
+         alias: "GetRecords Success (Unit: , StatType: )"
          statType: "ave"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -138,31 +147,55 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "IncomingBytes"
-         alias: "Incoming Bytes"
-         statType: "ave"
+         alias: "Incoming Bytes (Unit: byte, StatType: sum)"
+         statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
          clusterRollUpType: "INDIVIDUAL"
          delta: false
          multiplier: 1
        - name: "IncomingRecords"
-         alias: "Incoming Records"
-         statType: "ave"
+         alias: "Incoming Records (Unit: count, StatType: sum)"
+         statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
          clusterRollUpType: "INDIVIDUAL"
          delta: false
          multiplier: 1
        - name: "PutRecord.Bytes"
-         alias: "PutRecord Bytes Put"
-         statType: "ave"
+         alias: "PutRecord Bytes (Unit: byte, StatType: sum)"
+         statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
          clusterRollUpType: "INDIVIDUAL"
          delta: false
          multiplier: 1
        - name: "PutRecord.Latency"
-         alias: "PutRecord Latency"
+         alias: "PutRecord Latency (Unit: ms, StatType: sum)"
+         statType: "ave"
+         aggregationType: "AVERAGE"
+         timeRollUpType: "AVERAGE"
+         clusterRollUpType: "INDIVIDUAL"
+         delta: false
+         multiplier: 1
+       - name: "PutRecord.Success"
+         alias: "PutRecord Success (StatType: ave)"
+         statType: "ave"
+         aggregationType: "AVERAGE"
+         timeRollUpType: "AVERAGE"
+         clusterRollUpType: "INDIVIDUAL"
+         delta: false
+         multiplier: 1
+       - name: "PutRecords.Bytes"
+         alias: "PutRecords Bytes (Unit: byte, StatType: sum)"
+         statType: "sum"
+         aggregationType: "AVERAGE"
+         timeRollUpType: "AVERAGE"
+         clusterRollUpType: "INDIVIDUAL"
+         delta: false
+         multiplier: 1
+       - name: "PutRecords.Latency"
+         alias: "PutRecords Latency (Unit: byte, StatType: ave)"
          statType: "ave"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -170,15 +203,15 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "PutRecords.Records"
-         alias: "PutRecords Records Put"
-         statType: "ave"
+         alias: "PutRecords Records (Unit: count, StatType: sum)"
+         statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
          clusterRollUpType: "INDIVIDUAL"
          delta: false
          multiplier: 1
        - name: "PutRecords.Success"
-         alias: "PutRecords Success"
+         alias: "PutRecords Success (StatType: ave)"
          statType: "ave"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -186,7 +219,55 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "ReadProvisionedThroughputExceeded"
-         alias: "Read Provisioned Throughput Exceeded"
+         alias: "Read Throughput Exceeded (Unit: Count/Request, StatType: ave)"
+         statType: "ave"
+         aggregationType: "AVERAGE"
+         timeRollUpType: "AVERAGE"
+         clusterRollUpType: "INDIVIDUAL"
+         delta: false
+         multiplier: 1
+       - name: "SubscribeToShard.RateExceeded"
+         alias: "Subscribe to Shard Exceeded"
+         statType: "ave"
+         aggregationType: "AVERAGE"
+         timeRollUpType: "AVERAGE"
+         clusterRollUpType: "INDIVIDUAL"
+         delta: false
+         multiplier: 1
+       - name: "SubscribeToShard.Success"
+         alias: "Subscribe to Shard Success"
+         statType: "ave"
+         aggregationType: "AVERAGE"
+         timeRollUpType: "AVERAGE"
+         clusterRollUpType: "INDIVIDUAL"
+         delta: false
+         multiplier: 1
+       - name: "SubscribeToShardEvent.Bytes"
+         alias: "SubscribeToShardEvent Outgoing Bytes (Unit: byte, StatType: sum)"
+         statType: "sum"
+         aggregationType: "AVERAGE"
+         timeRollUpType: "AVERAGE"
+         clusterRollUpType: "INDIVIDUAL"
+         delta: false
+         multiplier: 1
+       - name: "SubscribeToShardEvent.MillisBehindLatest"
+         alias: "SubscribeToShardEvent MillisBehindLatest (Unit: ms, StatType: max)"
+         statType: "max"
+         aggregationType: "AVERAGE"
+         timeRollUpType: "AVERAGE"
+         clusterRollUpType: "INDIVIDUAL"
+         delta: false
+         multiplier: 1
+       - name: "SubscribeToShardEvent.Records"
+         alias: "SubscribeToShardEvent Outgoing Records (Unit: count, StatType: sum)"
+         statType: "sum"
+         aggregationType: "AVERAGE"
+         timeRollUpType: "AVERAGE"
+         clusterRollUpType: "INDIVIDUAL"
+         delta: false
+         multiplier: 1
+       - name: "SubscribeToShardEvent.Success"
+         alias: "SubscribeToShardEvent Success (StatType: ave)"
          statType: "ave"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -194,7 +275,7 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "WriteProvisionedThroughputExceeded"
-         alias: "Write Provisioned Throughput Exceeded"
+         alias: "Write Throughput Exceeded (Unit: Count/Request, StatType: ave)"
          statType: "ave"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"

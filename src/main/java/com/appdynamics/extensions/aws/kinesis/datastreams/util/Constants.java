@@ -20,6 +20,6 @@ package com.appdynamics.extensions.aws.kinesis.datastreams.util;
  * Stores defaults that are used throughout the project
  */
 public class Constants {
-    public static final String DEFAULT_METRIC_PREFIX = "Custom Metrics|Kinesis Data Streams";
+    public static final String DEFAULT_METRIC_PREFIX = "Custom Metrics|Kinesis Data Streams|";
     public static final String MONITOR_NAME = "KinesisDataStreamsMonitor";
 }
