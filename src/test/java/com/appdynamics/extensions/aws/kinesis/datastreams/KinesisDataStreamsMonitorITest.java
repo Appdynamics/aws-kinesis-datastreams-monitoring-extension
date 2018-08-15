@@ -26,9 +26,9 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by pradeep.nair on 8/6/18.
  */
-public class KinesisDataStreamsMonitorITest {
+public final class KinesisDataStreamsMonitorITest {
 
-    private KinesisDataStreamsMonitor classUnderTest = new KinesisDataStreamsMonitor();
+    private final KinesisDataStreamsMonitor classUnderTest = new KinesisDataStreamsMonitor();
 
     @Test
     public void testMetricsCollectionCredentialsEncrypted() throws Exception {
