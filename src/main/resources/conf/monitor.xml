@@ -14,21 +14,21 @@
   -->
 
 <monitor>
-    <name>AWS Kinesis Data Streams</name>
+    <name>AWS Kinesis Data Streams Monitor</name>
     <type>managed</type>
-    <description>AWS Kinesis Data Streams Monitoring Extension</description>
+    <description>Monitors AWS Kinesis Data Streams</description>
     <monitor-configuration></monitor-configuration>
     <monitor-run-task>
         <execution-style>periodic</execution-style>
         <execution-frequency-in-seconds>60</execution-frequency-in-seconds>
         <name>AWS Kinesis Data Streams Monitor Run Task</name>
-        <display-name>AWS Kinesis Data Streams Task</display-name>
-        <description>AWS Kinesis Data Streams Task</description>
+        <display-name>AWS Kinesis Data Streams Monitor Run Task</display-name>
+        <description>AWS Kinesis Data Streams Monitor Run Task</description>
         <type>java</type>
         <execution-timeout-in-secs>60</execution-timeout-in-secs>
         <task-arguments>
             <argument name="config-file" is-required="true" default-value=
-                    "monitors/AWSKinesisDataStreamsMonitoringExtension/config.yml" />
+                    "monitors/AWSKinesisDataStreamsMonitor/config.yml" />
         </task-arguments>
         <java-task>
             <classpath>aws-kinesis-datastreams-monitoring-extension.jar</classpath>

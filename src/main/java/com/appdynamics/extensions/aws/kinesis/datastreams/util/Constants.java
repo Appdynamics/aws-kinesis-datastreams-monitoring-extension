@@ -22,4 +22,5 @@ package com.appdynamics.extensions.aws.kinesis.datastreams.util;
 public final class Constants {
     public static final String DEFAULT_METRIC_PREFIX = "Custom Metrics|AWS Kinesis Data Streams|";
     public static final String MONITOR_NAME = "KinesisDataStreamsMonitor";
+    public static final String NAMESPACE = "AWS/Kinesis";
 }

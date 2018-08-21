@@ -29,19 +29,12 @@ proxyConfig:
   username:
   password:
 
-# TODO comments check and filter by streamname
 # Filters based on dimensions, values accepts comma separated values and regex patterns. If `.*` is used, all are
 # monitored and if empty, none are monitored.
 dimensions:
-  # Dimension
   - name: "StreamName"
     displayName: "Stream Name"
     values: [".*"]
-  # Dimension Consumer Name should be used if a Consumer is configured (there is an active subscription).
-  # Keep values empty if no consumer is configured.
-#  - name: "ConsumerName"
-#    displayName: "Consumer Name"
-#    values: [".*"]
   # The dimension ShardId can only be used when retrieving Enhanced Shard-level Metrics.
   # To get this level of data, you must specifically enable it for the stream using the EnableEnhancedMonitoring operation.
   # Please refer https://docs.aws.amazon.com/kinesis/latest/APIReference/API_EnableEnhancedMonitoring.html for enabling.
@@ -61,6 +54,9 @@ concurrencyConfig:
 # Basic will fire CloudWatch API calls every 5 minutes
 # Detailed will fire CloudWatch API calls every 1 minutes
 cloudWatchMonitoring: "Basic"
+# If you want to run the extension with a further delay, comment the "cloudWatchMonitoring" above and use the following field
+# which takes in the number of minutes after which the extension should call the cloudwatch metrics
+#cloudWatchMonitoringInterval: 10
 
 regionEndPoints:
   us-east-1 : monitoring.us-east-1.amazonaws.com
@@ -98,7 +94,7 @@ metricsConfig:
     # AWS will charge for enhanced metrics emitted from Kinesis.
     includeMetrics:
        - name: "GetRecords.Bytes"
-         alias: "GetRecords Bytes (Unit - byte; StatType - sum)"
+         alias: "GetRecords Bytes per minute (Unit - byte; StatType - sum)"
          statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -118,7 +114,7 @@ metricsConfig:
          alias: "GetRecords Iterator Age (Unit - ms; StatType - max)"
          statType: "max"
          aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
+         timeRollUpType: "CURRENT"
          clusterRollUpType: "INDIVIDUAL"
          delta: false
          multiplier: 1
@@ -131,7 +127,7 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "GetRecords.Records"
-         alias: "GetRecords Records (Unit - count; StatType - sum)"
+         alias: "GetRecords Records per minute (Unit - count; StatType - sum)"
          statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -147,7 +143,7 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "IncomingBytes"
-         alias: "Incoming Bytes (Unit - byte; StatType - sum)"
+         alias: "Incoming Bytes per minute (Unit - byte; StatType - sum)"
          statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -155,7 +151,7 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "IncomingRecords"
-         alias: "Incoming Records (Unit - count; StatType - sum)"
+         alias: "Incoming Records per minute (Unit - count; StatType - sum)"
          statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -163,7 +159,7 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "PutRecord.Bytes"
-         alias: "PutRecord Bytes (Unit - byte; StatType - sum)"
+         alias: "PutRecord Bytes per minute (Unit - byte; StatType - sum)"
          statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -187,7 +183,7 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "PutRecords.Bytes"
-         alias: "PutRecords Bytes (Unit - byte; StatType - sum)"
+         alias: "PutRecords Bytes per minute (Unit - byte; StatType - sum)"
          statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -203,7 +199,7 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "PutRecords.Records"
-         alias: "PutRecords Records (Unit - count; StatType - sum)"
+         alias: "PutRecords Records per minute (Unit - count; StatType - sum)"
          statType: "sum"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
@@ -243,8 +239,8 @@ metricsConfig:
          delta: false
          multiplier: 1
        - name: "SubscribeToShardEvent.Bytes"
-         alias: "SubscribeToShardEvent Outgoing Bytes (Unit - byte; StatType - sum)"
-         statType: "sum"
+         alias: "SubscribeToShardEvent Outgoing Bytes (Unit - byte; StatType - ave)"
+         statType: "ave"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
          clusterRollUpType: "INDIVIDUAL"
@@ -254,13 +250,13 @@ metricsConfig:
          alias: "SubscribeToShardEvent MillisBehindLatest (Unit - ms; StatType - max)"
          statType: "max"
          aggregationType: "AVERAGE"
-         timeRollUpType: "AVERAGE"
+         timeRollUpType: "CURRENT"
          clusterRollUpType: "INDIVIDUAL"
          delta: false
          multiplier: 1
        - name: "SubscribeToShardEvent.Records"
-         alias: "SubscribeToShardEvent Outgoing Records (Unit - count; StatType - sum)"
-         statType: "sum"
+         alias: "SubscribeToShardEvent Outgoing Records (Unit - count; StatType - ave)"
+         statType: "ave"
          aggregationType: "AVERAGE"
          timeRollUpType: "AVERAGE"
          clusterRollUpType: "INDIVIDUAL"

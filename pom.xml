@@ -23,11 +23,12 @@
     <artifactId>aws-kinesis-datastreams-monitoring-extension</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>AWS Kinesis DataStreams Monitoring Extension</name>
+    <name>AWS Kinesis DataStreams Monitor</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-        <target.dir>${project.build.directory}/aws-kinesis-datastreams-monitoring-extension</target.dir>
+        <target.name>AWSKinesisDataStreamsMonitor</target.name>
+        <target.dir>${project.build.directory}/${target.name}</target.dir>
     </properties>
 
     <dependencies>
@@ -132,7 +133,7 @@
                                     <fileset dir="${project.build.directory}" includes="${project.artifactId}.${project.packaging}"/>
                                 </copy>
                                 <zip destfile="${target.dir}-${project.version}.zip">
-                                    <zipfileset dir="${target.dir}" filemode="755" prefix="AWSKinesisDataStreamsMonitoringExtension"/>
+                                    <zipfileset dir="${target.dir}" filemode="755" prefix="${target.name}"/>
                                 </zip>
                                 <delete dir="${target.dir}"/>
                             </target>
