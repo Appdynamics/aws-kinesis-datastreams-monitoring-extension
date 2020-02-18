@@ -11,6 +11,16 @@ Captures statistics for Amazon Kinesis Data Streams from Amazon CloudWatch and d
     ```
 2. In order to use this extension, you do need a [Standalone JAVA Machine Agent](https://docs.appdynamics.com/display/PRO44/Standalone+Machine+Agents) or [SIM Agent](https://docs.appdynamics.com/display/PRO44/Server+Visibility).  For more details on downloading these products, please  visit [here](https://download.appdynamics.com/).
 3. The extension needs to be able to connect to AWS Cloudwatch in order to collect and send metrics. To do this, you will have to either establish a remote connection in between the extension and the product using access key and secret key, or have an agent running on EC2 instance, which you can use with instance profile.
+<p><strong>Agent Compatibility:</strong></p>
+<p><strong>Note: This extension is compatible with Machine Agent version 4.5.13 or later.</strong></p>
+<ol>
+<li>
+<p>If you are seeing warning messages while starting the Machine Agent, update the http-client and http-core JARs in <code>{MACHINE_AGENT_HOME}/monitorsLibs</code> to <code>httpclient-4.5.9</code> and <code>httpcore-4.4.12</code> to make this warning go away.</p>
+</li>
+<li>
+<p>To make this extension work on Machine Agent &lt; 4.5.13, the http-client and http-core JARs in <code>{MACHINE_AGENT_HOME}/monitorsLibs</code> need to be updated to <code>httpclient-4.5.9</code> and <code>httpcore-4.4.12</code>.</p>
+</li>
+</ol>
 
 ## Installation
 1. Run `mvn clean install` from `aws-kinesis-datastreams-monitoring-extension`
