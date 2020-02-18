@@ -18,10 +18,14 @@ package com.appdynamics.extensions.aws.kinesis.datastreams;
 import com.appdynamics.extensions.aws.SingleNamespaceCloudwatchMonitor;
 import com.appdynamics.extensions.aws.collectors.NamespaceMetricStatisticsCollector;
 import com.appdynamics.extensions.aws.config.Configuration;
+import static com.appdynamics.extensions.aws.kinesis.datastreams.util.Constants.DEFAULT_METRIC_PREFIX;
+import static com.appdynamics.extensions.aws.kinesis.datastreams.util.Constants.MONITOR_NAME;
 import com.appdynamics.extensions.aws.metric.processors.MetricsProcessor;
+import com.google.common.collect.Lists;
 import org.apache.log4j.Logger;
 
-import static com.appdynamics.extensions.aws.kinesis.datastreams.util.Constants.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by pradeep.nair on 8/3/18.
@@ -65,8 +69,8 @@ public class KinesisDataStreamsMonitor extends SingleNamespaceCloudwatchMonitor<
     }
 
     @Override
-    protected int getTaskCount() {
-        return 3;
+    protected List<Map<String, ?>> getServers() {
+        return Lists.newArrayList();
     }
 
     private MetricsProcessor createMetricsProcessor(Configuration config) {
