@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 AppDynamics,Inc.
+ * Copyright (c) 2020 AppDynamics,Inc.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,8 +21,9 @@ import com.appdynamics.extensions.aws.config.Configuration;
 import static com.appdynamics.extensions.aws.kinesis.datastreams.util.Constants.DEFAULT_METRIC_PREFIX;
 import static com.appdynamics.extensions.aws.kinesis.datastreams.util.Constants.MONITOR_NAME;
 import com.appdynamics.extensions.aws.metric.processors.MetricsProcessor;
+import com.appdynamics.extensions.logging.ExtensionsLoggerFactory;
 import com.google.common.collect.Lists;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ import java.util.Map;
  */
 public class KinesisDataStreamsMonitor extends SingleNamespaceCloudwatchMonitor<Configuration> {
 
-    private static final Logger LOGGER = Logger.getLogger(KinesisDataStreamsMonitor.class);
+    private static final Logger LOGGER = ExtensionsLoggerFactory.getLogger(KinesisDataStreamsMonitor.class);
 
     public KinesisDataStreamsMonitor() {
         super(Configuration.class);
