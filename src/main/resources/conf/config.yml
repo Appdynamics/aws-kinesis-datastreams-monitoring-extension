@@ -1,4 +1,3 @@
----
 #This will create this metric in all the tiers, under this path. Please make sure to have a trailing |
 #metricPrefix: "Custom Metrics|AWS Kinesis Data Stream|"
 
@@ -350,4 +349,21 @@ metricsConfig:
     # (ex: 5xx error responses from a service) or throttling errors
     #
     maxErrorRetrySize: 0
-...
+
+controllerInfo:
+  controllerHost: "controller"
+  controllerPort: 8090
+  account: "customer1"
+  username: ""
+  password: ""
+  encryptedPassword: ""
+  encryptionKey: ""
+  controllerSslEnabled: false
+  enableOrchestration: false
+  uniqueHostId: ""
+  accountAccessKey: ""
+  machinePath: ""
+  simEnabled: true
+  applicationName: ""
+  tierName: ""
+  nodeName: ""
