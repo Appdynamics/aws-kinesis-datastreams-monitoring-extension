@@ -350,6 +350,10 @@ metricsConfig:
     #
     maxErrorRetrySize: 0
 
+
+#Encryption key for your controllerInfo password
+encryptionKey: ""
+
 controllerInfo:
   controllerHost: "controller"
   controllerPort: 8090
@@ -357,7 +361,6 @@ controllerInfo:
   username: ""
   password: ""
   encryptedPassword: ""
-  encryptionKey: ""
   controllerSslEnabled: false
   enableOrchestration: false
   uniqueHostId: ""
