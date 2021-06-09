@@ -166,7 +166,8 @@ Always feel free to fork and contribute any changes directly here on [GitHub](ht
 ## Version
    |Name|Version|
    |--------------------------|------------|
-   |Extension Version         |2.2.1       |
-   |Controller Compatibility  |4.4 or Later|
-   |Last Update               |Jan 21, 2021|
+   |Extension Version         |2.2.2       |
+   |Controller Compatibility  |4.5 or Later|
+   |Agent Compatibility  |4.5.13 or Later|
+   |Last Update               |Jun 9, 2021|
 

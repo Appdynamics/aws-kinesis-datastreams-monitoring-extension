@@ -1,5 +1,8 @@
 # AWS Kinesis Data Streams Monitoring Extension
 
+## 2.2.2
+1. Updated aws-cloudwatch-exts-commons from 2.2.4 to 2.2.5
+
 ## 2.2.1
 1. Updated aws-cloudwatch-exts-commons from 2.2.3 to 2.2.4
 
